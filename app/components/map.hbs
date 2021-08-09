@@ -2,8 +2,8 @@
   <h1>Linked Open Data Challenge</h1>
   <p>Zoek uw gemeente op de kaart en klik erop om meer informatie te krijgen over de besluiten die er genomen werden.</p>
 
-  <LeafletMap @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
-    <layers.tile @url={{this.url}} @tileSize={{512}} @zoomOffset={{-1}} />
+  <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
+    <layers.tile @url={{this.url}} />
   </LeafletMap>
   
   <h2 class="info-title"></h2>

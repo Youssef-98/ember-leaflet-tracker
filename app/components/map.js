@@ -1,5 +1,7 @@
 import Component from '@glimmer/component';
-import ENV from 'ember-leaflet-tracker/config/environment';
+
+/* const newEngine = require('@comunica/actor-init-sparql').newEngine;
+const myEngine = newEngine(); */
 
 const MAPBOX_API =
   'https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?';
@@ -10,12 +12,6 @@ export default class MapComponent extends Component {
   zoom = 9;
 
   get url() {
-    let accesToken = `access_token=${this.token}`;
-
-    return `${MAPBOX_API}${accesToken}`;
-  }
-
-  get token() {
-    return encodeURIComponent(ENV.MAPBOX_ACCESS_TOKEN);
+    return 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   }
 }

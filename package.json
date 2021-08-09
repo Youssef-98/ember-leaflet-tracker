@@ -68,5 +68,8 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "@comunica/actor-init-sparql": "^1.21.3"
   }
 }
