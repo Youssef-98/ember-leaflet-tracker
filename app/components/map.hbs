@@ -1,6 +1,15 @@
 <div class="map-container">
   <h1>Linked Open Data Challenge</h1>
   <p>Zoek uw gemeente op de kaart en klik erop om meer informatie te krijgen over de besluiten die er genomen werden.</p>
-  <div id="mapid"></div>
+
+  <p><label>{{input type="checkbox" checked=nightMode}} Night mode</label></p>
+  <LeafletMap @lat={{lat}} @lng={{lng}} @zoom={{zoom}} as |layers|>
+    {{#if nightMode}}
+      <layers.tile @url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"/>
+    {{else}}
+      <layers.tile @url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"/>
+    {{/if}}
+  </LeafletMap>
+  
   <h2 class="info-title"></h2>
 </div>
