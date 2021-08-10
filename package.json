@@ -70,6 +70,7 @@
     "edition": "octane"
   },
   "dependencies": {
-    "@comunica/actor-init-sparql": "^1.21.3"
+    "@comunica/actor-init-sparql": "^1.21.3",
+    "@comunica/actor-init-sparql-file": "^1.21.3"
   }
 }

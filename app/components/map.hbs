@@ -6,5 +6,6 @@
     <layers.tile @url={{this.url}} />
   </LeafletMap>
   
-  <h2 class="info-title"></h2>
+  <button {{on "click" this.sparqlQuery}}>SPARQL</button>
+  <h2 class="info-title">{{this.hello}}</h2>
 </div>
