@@ -5,7 +5,7 @@ import { tracked } from '@glimmer/tracking';
 import { start } from '../helpers/sparql';
 
 export default class MapComponent extends Component {
-  @tracked municipalities = A([]);
+  @tracked municipalities = [];
 
   lat = 51.0109;
   lng = 3.7265;
@@ -21,7 +21,6 @@ export default class MapComponent extends Component {
   async start() {
     start().then((result) => {
       this.municipalities = result;
-      console.log(this.municipalities);
     });
   }
 }

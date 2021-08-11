@@ -29,11 +29,11 @@ export async function start() {
 
   let municipalities = await fetchMunicipalities();
   municipalities.map(async (m, i) => {
-    const municipality = municipalities[i];
-    const nis = await fetchNis(municipality.cityName);
+    const nis = await fetchNis(m.cityName);
     const drawNis = await drawNIS(nis);
 
-    mArray.push({ name: municipality.cityName });
+    mArray.push(m.cityName);
+    console.log(mArray);
     coords.push(drawNis);
   });
 
