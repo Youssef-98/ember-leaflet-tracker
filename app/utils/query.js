@@ -1,34 +1,37 @@
-export const queryMunicipalities = `
-PREFIX dcterm: <http://purl.org/dc/terms/>
-PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX dc: <http://purl.org/dc/elements/1.1/>
-PREFIX bs: <https://w3id.org/def/basicsemantics-owl#>
-PREFIX ma: <http://www.w3.org/ns/ma-ont#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
-PREFIX mandaat: <http://data.vlaanderen.be/ns/mandaat#>
-PREFIX persoon: <http://data.vlaanderen.be/ns/persoon#>
-PREFIX dcterms: <http://purl.org/dc/terms/>
-PREFIX prov: <http://www.w3.org/ns/prov#>
-
-SELECT ?werkingsgebied (COUNT(?besluit) as ?count) WHERE {
-  ?zitting a besluit:Zitting .
-  ?zitting besluit:behandelt ?agendapunt .
-  ?behandelingVanAgendapunt dcterms:subject ?agendapunt .
-
-  ?besluit prov:wasGeneratedBy ?behandelingVanAgendapunt .
-
-  ?zitting besluit:isGehoudenDoor ?bo .
-  ?bo besluit:bestuurt ?s .
-  ?s a besluit:Bestuurseenheid .
-  ?s besluit:werkingsgebied [
-      rdfs:label ?werkingsgebied
-  ]
-}
-
-GROUP BY ?werkingsgebied
-`;
+export const queryMunicipalities = {
+  query: `
+  PREFIX dcterm: <http://purl.org/dc/terms/>
+  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX dc: <http://purl.org/dc/elements/1.1/>
+  PREFIX bs: <https://w3id.org/def/basicsemantics-owl#>
+  PREFIX ma: <http://www.w3.org/ns/ma-ont#>
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+  PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+  PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+  PREFIX mandaat: <http://data.vlaanderen.be/ns/mandaat#>
+  PREFIX persoon: <http://data.vlaanderen.be/ns/persoon#>
+  PREFIX dcterms: <http://purl.org/dc/terms/>
+  PREFIX prov: <http://www.w3.org/ns/prov#>
+  
+  SELECT ?werkingsgebied (COUNT(?besluit) as ?count) WHERE {
+    ?zitting a besluit:Zitting .
+    ?zitting besluit:behandelt ?agendapunt .
+    ?behandelingVanAgendapunt dcterms:subject ?agendapunt .
+  
+    ?besluit prov:wasGeneratedBy ?behandelingVanAgendapunt .
+  
+    ?zitting besluit:isGehoudenDoor ?bo .
+    ?bo besluit:bestuurt ?s .
+    ?s a besluit:Bestuurseenheid .
+    ?s besluit:werkingsgebied [
+        rdfs:label ?werkingsgebied
+    ]
+  }
+  
+  GROUP BY ?werkingsgebied
+  `,
+  source: 'https://openbelgium-2021.lblod.info/sparql',
+};
 
 /* export const queryNis = `
 PREFIX dcterm: <http://purl.org/dc/terms/>

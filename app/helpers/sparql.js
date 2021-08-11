@@ -1,9 +1,7 @@
-import { queryMunicipalities, queryNis, queryDecisions } from './query';
+import { queryMunicipalities, queryNis, queryDecisions } from '../utils/query';
 
-export async function sparqlEndpoint(query) {
-  const endpoint = `https://codex.opendata.api.vlaanderen.be:8888/sparql?query=${encodeURIComponent(
-    query
-  )}`;
+export async function sparqlEndpoint(source, query) {
+  const endpoint = `${source}?query=${encodeURIComponent(query)}`;
   const response = await fetch(endpoint, {
     headers: { Accept: 'application/sparql-results+json' },
   });
@@ -28,7 +26,10 @@ export async function start() {
 }
 
 export async function fetchMunicipalities() {
-  const municipalities = await sparqlEndpoint(queryMunicipalities);
+  const municipalities = await sparqlEndpoint(
+    queryMunicipalities.source,
+    queryMunicipalities.query
+  );
 
   console.log(municipalities);
 }
