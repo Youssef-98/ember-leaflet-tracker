@@ -8,4 +8,11 @@
   
   <button {{on "click" this.start}}>SPARQL</button>
   <h2 class="info-title"></h2>
+  <ul>
+    {{#each this.municipalities as |m|}}
+      <li>{{m.name}}</li>
+    {{else}}
+      <p>nothing was found</p>
+    {{/each}}
+  </ul>
 </div>

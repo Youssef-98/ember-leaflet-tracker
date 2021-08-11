@@ -1,6 +1,6 @@
 import { queryMunicipalities } from '../utils/query';
 
-export async function sparqlEndpoint(source, query) {
+async function sparqlEndpoint(source, query) {
   const endpoint = `${source}?query=${encodeURIComponent(query)}`;
   const response = await fetch(endpoint, {
     headers: { Accept: 'application/sparql-results+json' },
@@ -14,21 +14,30 @@ export async function sparqlEndpoint(source, query) {
   return bindings;
 }
 
-export async function drawNIS(NIS_code, data) {
+async function drawNIS(NIS_code) {
   const cors_bypass = 'http://proxy.linkeddatafragments.org/';
   const border_api = `${cors_bypass}http://belgium.geo.nazkamapps.com/geometry/nis/${NIS_code}`;
   const drawy_city_border = await (await fetch(border_api)).json();
+  const coordinates = drawy_city_border.geometry.coordinates;
 
-  console.log(drawy_city_border);
+  return coordinates;
 }
 
 export async function start() {
+  let mArray = [];
+  let coords = [];
+
   let municipalities = await fetchMunicipalities();
-  for (let m in municipalities) {
-    const municipality = municipalities[m];
-    console.log(municipality);
+  municipalities.map(async (m, i) => {
+    const municipality = municipalities[i];
     const nis = await fetchNis(municipality.cityName);
-  }
+    const drawNis = await drawNIS(nis);
+
+    mArray.push({ name: municipality.cityName });
+    coords.push(drawNis);
+  });
+
+  return mArray;
 }
 
 async function fetchMunicipalities() {
