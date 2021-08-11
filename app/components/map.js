@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { sparqlEndpoint, fetchMunicipalities } from '../helpers/sparql';
+import { start } from '../helpers/sparql';
 
 export default class MapComponent extends Component {
   lat = 51.0109;
@@ -13,9 +13,7 @@ export default class MapComponent extends Component {
   }
 
   @action
-  fetchMunicipalities() {
-    fetchMunicipalities().then((result) => {
-      console.log(result);
-    });
+  async start() {
+    await start();
   }
 }
