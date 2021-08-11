@@ -80,3 +80,64 @@ async function fetchNis(municipality) {
 
   return nis[0].nis.value;
 }
+
+/* async function fetchDecisions(municipality) {
+  const queryDecisions = {
+    query: `
+    PREFIX dcterm: <http://purl.org/dc/terms/>
+    PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dc: <http://purl.org/dc/elements/1.1/>
+    PREFIX bs: <https://w3id.org/def/basicsemantics-owl#>
+    PREFIX ma: <http://www.w3.org/ns/ma-ont#>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX besluit: <http://data.vlaanderen.be/ns/besluit#>
+    PREFIX mandaat: <http://data.vlaanderen.be/ns/mandaat#>
+    PREFIX persoon: <http://data.vlaanderen.be/ns/persoon#>
+    PREFIX dcterms: <http://purl.org/dc/terms/>
+    PREFIX prov: <http://www.w3.org/ns/prov#>
+    PREFIX ontology: <http://data.europa.eu/eli/ontology#>
+    
+    SELECT ?nbPro ?nbAnti ?nbNoVote ?besluit ?title WHERE {
+      ?zitting a besluit:Zitting .
+      ?zitting besluit:behandelt ?agendapunt .
+      ?behandelingVanAgendapunt dcterms:subject ?agendapunt ;
+                                besluit:heeftStemming ?stemming.
+      ?stemming besluit:aantalVoorstanders ?nbPro;
+                besluit:aantalTegenstanders ?nbAnti;
+                besluit:aantalOnthouders ?nbNoVote.
+     
+      ?besluit prov:wasGeneratedBy ?behandelingVanAgendapunt ;
+               ontology:title ?title .
+      
+      ?zitting besluit:isGehoudenDoor ?bo .
+      ?bo besluit:bestuurt ?s .
+      ?s a besluit:Bestuurseenheid .
+      ?s besluit:werkingsgebied [
+          rdfs:label '${municipality}'
+      ]
+    }`,
+    source: 'https://centrale-vindplaats.lblod.info/sparql',
+  };
+
+  const decisions = await sparqlEndpoint(
+    queryDecisions.source,
+    queryDecisions.query
+  );
+
+  let tmp = {};
+  let dArr = [];
+
+  decisions.map((d) => {
+    tmp = {
+      url: d.besluit.value,
+      title: d.title.value,
+      nbPro: d.nbPro.value,
+      nbAnti: d.nbAnti.value,
+      nbNoVote: d.nbNoVote.value,
+    };
+    dArr.push(tmp);
+  });
+
+  console.log(dArr);
+} */
