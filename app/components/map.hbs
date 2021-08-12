@@ -4,13 +4,21 @@
 
   <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
     <layers.tile @url={{this.url}} />
+
+    {{#each this.municipalities as |m|}}
+      <layers.polygon @locations={{this.locations}} @color="red" as |polygon|>
+        <polygon.tooltip @sticky={{true}}>
+          {{m.cityName}}
+        </polygon.tooltip>
+      </layers.polygon>
+    {{/each}}
   </LeafletMap>
   
   <button {{on "click" this.start}}>SPARQL</button>
   <h2 class="info-title"></h2>
   <ul>
     {{#each this.municipalities as |m|}}
-      <li>{{m}}</li>
+      <li>{{m.cityName}}</li>
     {{else}}
       <p>nothing was found</p>
     {{/each}}

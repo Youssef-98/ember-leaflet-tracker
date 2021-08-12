@@ -24,20 +24,26 @@ async function drawNIS(NIS_code) {
 }
 
 export async function start() {
-  const mArray = [];
-  const coords = [];
+  const municipalities = await fetchMunicipalities();
 
-  let municipalities = await fetchMunicipalities();
-  await municipalities.map(async (m, i) => {
-    mArray.push(m.cityName);
+  let polygon_data = [
+    {
+      cityName: '',
+      coordinates: [],
+    },
+  ];
 
-    const nis = await fetchNis(m.cityName);
-    const drawNis = await drawNIS(nis);
+  return Promise.all(
+    municipalities.map(async (m, i) => {
+      polygon_data[i] = { cityName: m.cityName, coordinates: [] };
 
-    coords.push(drawNis);
+      const nis = await fetchNis(m.cityName);
+      const drawNis = await drawNIS(nis);
+      polygon_data[i].coordinates = drawNis;
+    })
+  ).then(() => {
+    return polygon_data;
   });
-
-  return mArray;
 }
 
 async function fetchMunicipalities() {
