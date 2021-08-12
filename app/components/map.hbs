@@ -5,13 +5,14 @@
   <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
     <layers.tile @url={{this.url}} />
 
-    {{#each this.municipalities as |m|}}
-      <layers.polygon @locations={{this.locations}} @color="red" as |polygon|>
-        <polygon.tooltip @sticky={{true}}>
-          {{m.cityName}}
-        </polygon.tooltip>
-      </layers.polygon>
-    {{/each}}
+    
+      {{#each this.municipalities as |m|}}
+        <layers.polygon @locations={{this.locations}} @color="green" as |polygon|>
+          <polygon.tooltip @sticky={{true}}>
+            Gemeente
+          </polygon.tooltip>
+        </layers.polygon>
+      {{/each}}
   </LeafletMap>
   
   <button {{on "click" this.start}}>SPARQL</button>
