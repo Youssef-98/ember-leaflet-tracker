@@ -18,7 +18,7 @@ export default class MapComponent extends Component {
   }
 
   get locations() {
-    return this.municipalities.map((m) => m.coordinates);
+    return this.municipalities[0].coordinates;
   }
 
   @action

@@ -18,7 +18,7 @@
   <h2 class="info-title"></h2>
   <ul>
     {{#each this.municipalities as |m|}}
-      <li>{{m.cityName}}</li>
+      <li><b>{{m.cityName}}</b><br />Aantal besluiten beschikbaar: {{m.count}}</li>
     {{else}}
       <p>nothing was found</p>
     {{/each}}

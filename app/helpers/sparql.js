@@ -29,13 +29,18 @@ export async function start() {
   let polygon_data = [
     {
       cityName: '',
+      count: '',
       coordinates: [],
     },
   ];
 
   return Promise.all(
     municipalities.map(async (m, i) => {
-      polygon_data[i] = { cityName: m.cityName, coordinates: [] };
+      polygon_data[i] = {
+        cityName: m.cityName,
+        count: m.count,
+        coordinates: [],
+      };
 
       const nis = await fetchNis(m.cityName);
       const drawNis = await drawNIS(nis);
