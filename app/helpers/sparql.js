@@ -24,16 +24,16 @@ async function drawNIS(NIS_code) {
 }
 
 export async function start() {
-  let mArray = [];
-  let coords = [];
+  const mArray = [];
+  const coords = [];
 
   let municipalities = await fetchMunicipalities();
-  municipalities.map(async (m, i) => {
+  await municipalities.map(async (m, i) => {
+    mArray.push(m.cityName);
+
     const nis = await fetchNis(m.cityName);
     const drawNis = await drawNIS(nis);
 
-    mArray.push(m.cityName);
-    console.log(mArray);
     coords.push(drawNis);
   });
 

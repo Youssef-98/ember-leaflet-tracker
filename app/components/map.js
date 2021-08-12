@@ -19,8 +19,7 @@ export default class MapComponent extends Component {
 
   @action
   async start() {
-    start().then((result) => {
-      this.municipalities = result;
-    });
+    const result = await start();
+    this.municipalities = result;
   }
 }
