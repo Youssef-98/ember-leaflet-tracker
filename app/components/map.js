@@ -12,28 +12,34 @@ export default class MapComponent extends Component {
   lng = 3.7265;
   zoom = 9;
 
-  restaurants = [
-    [2.989816683000072, 50.91617313800003],
-    [2.9505748000000267, 50.87572132200006],
-    [2.8438445630000615, 50.91933953100005],
-  ];
-
   get url() {
     return 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
   }
 
-  get locations() {
-    return this.coordinates[0].map((c) => ({ lat: c[1], lng: c[0] }));
+  @action
+  locations(coordinates) {
+    console.log(coordinates);
+    return coordinates.map((c) => ({ lat: c[1], lng: c[0] }));
   }
 
   @action
   async start() {
     const result = await start();
-    console.log(result);
+    console.log('result: ', result);
     this.municipalities = result;
     result.map((r, i) => {
-      i === 2 && (this.coordinates = r.coordinates);
+      this.coordinates.push(r.coordinates);
     });
-    console.log(this.coordinates);
+
+    this.municipalities.map((m) => {
+      const coords = m.coordinates;
+      coords.map((c) => {
+        c.map((x) => {
+          let tmp = x[0];
+          x[0] = x[1];
+          x[1] = tmp;
+        });
+      });
+    });
   }
 }

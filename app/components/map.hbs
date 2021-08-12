@@ -5,18 +5,18 @@
   <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
     <layers.tile @url={{this.url}} />
 
-    
-      {{#each this.municipalities as |m|}}
-        <layers.polygon @locations={{this.locations}} @color="green" as |polygon|>
-          <polygon.tooltip @sticky={{true}}>
-            Gemeente
-          </polygon.tooltip>
-        </layers.polygon>
-      {{/each}}
+    {{#each this.municipalities as |m|}}
+      <layers.polygon @locations={{m.coordinates}} @color="green" as |polygon|>
+        <polygon.popup @sticky={{true}}>
+          <p><b>{{m.cityName}}</b></p>
+          <p>aantal besluiten beschikbaar: {{m.count}}</p>
+        </polygon.popup>
+      </layers.polygon>
+    {{/each}}
   </LeafletMap>
   
   <button {{on "click" this.start}}>SPARQL</button>
-  <h2 class="info-title"></h2>
+  <h2 class="info-title"></h2><br>
   <ul>
     {{#each this.municipalities as |m|}}
       <li><b>{{m.cityName}}</b><br />Aantal besluiten beschikbaar: {{m.count}}</li>
