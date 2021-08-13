@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import { start } from '../helpers/sparql';
 
-export default class IndexRoute extends Route {
+export default class ApplicationRoute extends Route {
   async model() {
     const result = await start();
 

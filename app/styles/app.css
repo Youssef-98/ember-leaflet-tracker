@@ -23,6 +23,9 @@ p {
 }
 
 /* municipality detail page */
+.m-container {
+  margin-top: 10px;
+}
 .hr {
   display: inline-block;
 }
