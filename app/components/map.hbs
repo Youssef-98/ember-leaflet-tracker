@@ -8,14 +8,15 @@
     {{#each @municipalities as |m|}}
       <layers.polygon @locations={{m.coordinates}} @color="green" as |polygon|>
         <polygon.popup @sticky={{true}}>
-          <p><b>{{m.cityName}}</b></p>
+          <LinkTo @route="municipality" @model={{m.cityName}}>
+            {{m.cityName}}
+          </LinkTo>
           <p>aantal besluiten beschikbaar: {{m.count}}</p>
         </polygon.popup>
       </layers.polygon>
     {{/each}}
   </LeafletMap>
   
-  <h2 class="info-title"></h2><br>
   <ul>
     {{#each @municipalities as |m|}}
       <li><b>{{m.cityName}}</b><br />Aantal besluiten beschikbaar: {{m.count}}</li>

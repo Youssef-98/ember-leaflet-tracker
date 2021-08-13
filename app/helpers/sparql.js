@@ -51,6 +51,30 @@ export async function start() {
   });
 }
 
+export async function fetchMunicipality(cityName) {
+  const municipalities = await fetchMunicipalities();
+
+  let municipality = {};
+
+  return Promise.all(
+    municipalities.map(async (m) => {
+      if (m.cityName === cityName) {
+        const nis = await fetchNis(m.cityName);
+        const decisions = await fetchDecisions(m.cityName);
+
+        municipality = {
+          cityName: m.cityName,
+          count: m.count,
+          nis,
+          decisions,
+        };
+      }
+    })
+  ).then(() => {
+    return municipality;
+  });
+}
+
 async function fetchMunicipalities() {
   const municipalities = await sparqlEndpoint(
     queryMunicipalities.source,
@@ -101,7 +125,7 @@ async function fetchNis(municipality) {
   return nis[0].nis.value;
 }
 
-/* async function fetchDecisions(municipality) {
+export async function fetchDecisions(municipality) {
   const queryDecisions = {
     query: `
     PREFIX dcterm: <http://purl.org/dc/terms/>
@@ -159,5 +183,5 @@ async function fetchNis(municipality) {
     dArr.push(tmp);
   });
 
-  console.log(dArr);
-} */
+  return dArr;
+}
