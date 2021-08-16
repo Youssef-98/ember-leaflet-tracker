@@ -1,7 +1,11 @@
 {{page-title "Ember Leaflet Tracker"}}
 
-<Map 
-  @municipalities={{@model}}
-/>
-
-{{outlet}}
+<div class="container">
+  <Header />
+  <div class="body">
+    <Map 
+      @municipalities={{@model}}
+    />
+    {{outlet}}
+  </div>
+</div>

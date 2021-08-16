@@ -1,12 +1,16 @@
 <div class="map-container">
-  <h1>Linked Open Data Challenge</h1>
-  <p>Zoek uw gemeente op de kaart en klik erop om meer informatie te krijgen over de besluiten die er genomen werden.</p>
+  <AuContent>
+    <h1>Linked Open Data Challenge</h1>
+    <p class="map-subtitle">Zoek uw gemeente op de kaart en klik erop om meer informatie te krijgen 
+      over de besluiten die er genomen werden.
+    </p>
+  </AuContent>
 
   <LeafletMap @lat={{this.lat}} @lng={{this.lng}} @zoom={{this.zoom}} as |layers|>
     <layers.tile @url={{this.url}} />
 
     {{#each @municipalities as |m|}}
-      <layers.polygon @locations={{m.coordinates}} @color="green" as |polygon|>
+      <layers.polygon @locations={{m.coordinates}} @color="#1f7bc2" as |polygon|>
         <polygon.popup @sticky={{true}}>
           <LinkTo @route="municipality" @model={{m.cityName}}>
             {{m.cityName}}
